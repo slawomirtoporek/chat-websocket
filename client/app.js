@@ -7,10 +7,12 @@ const addMessageForm = document.getElementById('add-messages-form');
 const userNameInput = document.getElementById('username');
 const messageContentInput = document.getElementById('message-content');
 
+let userName = '';
+
 //socket.on('message', (event) => addMessage(event.author, event.content));
 socket.on('message', ({ author, content }) => addMessage(author, content));
-
-let userName = '';
+socket.on('newUser', ({ author, content }) => addMessage(author, content));
+socket.on('userLeft', ({ author, content }) => addMessage(author, content));
 
 const login = e => {
   e.preventDefault();
@@ -31,6 +33,7 @@ const addMessage = (author, content) => {
   const message = document.createElement('li');
   message.classList.add('message', 'message--received');
 
+  if (author === 'Chat Bot') message.classList.add('message--chatbot');
   if (author === userName) message.classList.add('message--self');
 
   message.innerHTML = `
