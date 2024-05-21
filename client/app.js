@@ -1,4 +1,4 @@
-const socket = io({autoConnect: false});
+const socket = io();
 
 const loginForm = document.getElementById('welcome-form');
 const messagesSection = document.getElementById('messages-section');
